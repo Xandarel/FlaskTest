@@ -1,0 +1,42 @@
+iterations: 10          # Количество итераций для каждого действия (actions)
+processes: 10           # Количество процессов (здесь имитируется количество клиентов которые будут подключаться к вашему API)
+actions:                # Список действий для тестирования
+  - http:
+      method: GET  # http метод
+      title: Test GET # название теста
+      url: http://127.0.0.1:5000/sneakers/1  # URL для тестирования
+      success: 200 # http статус код при котором тест считается пройдённым
+  - sleep:
+      duration: 1                                  # Задание на сон
+  - http:
+      title: Test post
+      method: POST # POST метод с указанием заголовков и тела запроса
+      url:  http://127.0.0.1:5000/tshirts
+      body: {
+        "brand": "nike",
+        "color": "blue",
+        "name": "belmont",
+        "price": 666.0,
+        "quantity": 132,
+        "size": 27
+             }
+      success: 200 # http статус код при котором тест считается пройдённым
+  - sleep:
+      duration: 1
+  - http:
+      title: Test patch
+      method: PATCH
+      url:  http://127.0.0.1:5000/tshirts/2
+      body: {
+        "price": 666.0,
+        "quantity": 132,
+        "size": 27
+      }
+      success: 200
+  - sleep:
+      duration: 1
+  - http:
+      title: Test delete
+      method: DELETE
+      url: http://127.0.0.1:5000/tshirts/
+      success: 200
